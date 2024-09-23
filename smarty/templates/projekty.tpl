@@ -27,18 +27,10 @@
             <option value="w trakcie">W trakcie</option>
         </select><br>
 
-        <button type="submit">Dodaj projekt</button>
-    </form>
+        <label for="odpowiedzialny">Odpowiedzialny:</label>
+        <input type="text" id="odpowiedzialny" name="odpowiedzialny" required><br>
 
-    <!-- Formularz filtrowania -->
-    <form method="GET" action="">
-        <label for="filter-status">Filtruj według statusu:</label>
-        <select name="filter-status" id="filter-status">
-            <option value="">Wszystkie</option>
-            <option value="zakończony" {if $filter_status == 'zakończony'}selected{/if}>Zakończony</option>
-            <option value="w trakcie" {if $filter_status == 'w trakcie'}selected{/if}>W trakcie</option>
-        </select>
-        <button type="submit">Filtruj</button>
+        <button type="submit">Dodaj projekt</button>
     </form>
 
     <!-- Formularz wyszukiwania projektów -->
@@ -55,6 +47,8 @@
             <th>Data rozpoczęcia</th>
             <th>Data zakończenia</th>
             <th>Status</th>
+            <th>Odpowiedzialny</th>
+            <th>Czas upływu</th>
             <th>Akcje</th>
         </tr>
         {foreach from=$projekty item=projekt}
@@ -64,6 +58,17 @@
             <td>{$projekt.data_rozpoczecia}</td>
             <td>{if $projekt.data_zakonczenia}{$projekt.data_zakonczenia}{else}W trakcie{/if}</td>
             <td>{$projekt.status}</td>
+            <td>{$projekt.odpowiedzialny}</td>
+            <td>
+                {assign var="data_rozpoczecia" value=$projekt.data_rozpoczecia}
+                {assign var="aktualna_data" value="now"|date_format:"%Y-%m-%d"}
+                {assign var="roznica" value=(strtotime($aktualna_data) - strtotime($data_rozpoczecia)) / (60 * 60 * 24)}
+                {if $roznica >= 0}
+                    {$roznica} dni
+                {else}
+                    "Niedawno rozpoczęty"
+                {/if}
+            </td>
             <td>
                 <a href="index.php?action=edit&id={$projekt.id}">Edytuj</a>
                 <a href="index.php?action=delete&id={$projekt.id}" onclick="return confirm('Czy na pewno chcesz usunąć ten projekt?')">Usuń</a>

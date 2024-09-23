@@ -15,7 +15,7 @@ $user = 'root';
 $password = '';
 
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $password);
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     error_log("Błąd połączenia z bazą danych: " . $e->getMessage());
@@ -30,34 +30,10 @@ function getProjectById($pdo, $id) {
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-// Sprawdzamy, czy użytkownik chce dodać projekt
+// Sprawdzamy, czy użytkownik chce edytować lub usunąć projekt
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 
-if ($action == 'add') {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $nazwa = $_POST['nazwa'];
-        $opis = $_POST['opis'];
-        $data_rozpoczecia = $_POST['data_rozpoczecia'];
-        $status = $_POST['status'];
-
-        $sql = "INSERT INTO projekty (nazwa, opis, data_rozpoczecia, status) VALUES (:nazwa, :opis, :data_rozpoczecia, :status)";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([
-            'nazwa' => $nazwa,
-            'opis' => $opis,
-            'data_rozpoczecia' => $data_rozpoczecia,
-            'status' => $status,
-        ]);
-
-        header('Location: index.php');
-        exit;
-    } else {
-        $smarty->display('add.tpl'); // Wyświetl formularz dodawania
-    }
-}
-
-// Logika edytowania projektu
 if ($action == 'edit') {
     $id = $_GET['id'];
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -65,14 +41,16 @@ if ($action == 'edit') {
         $opis = $_POST['opis'];
         $data_rozpoczecia = $_POST['data_rozpoczecia'];
         $status = $_POST['status'];
+        $odpowiedzialny = $_POST['odpowiedzialny'];
 
-        $sql = "UPDATE projekty SET nazwa = :nazwa, opis = :opis, data_rozpoczecia = :data_rozpoczecia, status = :status WHERE id = :id";
+        $sql = "UPDATE projekty SET nazwa = :nazwa, opis = :opis, data_rozpoczecia = :data_rozpoczecia, status = :status, odpowiedzialny = :odpowiedzialny WHERE id = :id";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
             'nazwa' => $nazwa,
             'opis' => $opis,
             'data_rozpoczecia' => $data_rozpoczecia,
             'status' => $status,
+            'odpowiedzialny' => $odpowiedzialny,
             'id' => $id,
         ]);
 
@@ -94,7 +72,6 @@ if ($action == 'edit') {
     }
 }
 
-// Logika usuwania projektu
 if ($action == 'delete' && $id) {
     $sql = "DELETE FROM projekty WHERE id = :id";
     $stmt = $pdo->prepare($sql);
@@ -116,4 +93,29 @@ $projekty = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $smarty->assign('projekty', $projekty);
 $smarty->assign('search', $search);
 $smarty->display('projekty.tpl');
+
+if ($action == 'add' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nazwa = $_POST['nazwa'];
+    $opis = $_POST['opis'];
+    $data_rozpoczecia = $_POST['data_rozpoczecia'];
+    $status = $_POST['status'];
+    $odpowiedzialny = $_POST['odpowiedzialny'];
+
+    $sql = "INSERT INTO projekty (nazwa, opis, data_rozpoczecia, status, odpowiedzialny) VALUES (:nazwa, :opis, :data_rozpoczecia, :status, :odpowiedzialny)";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([
+        'nazwa' => $nazwa,
+        'opis' => $opis,
+        'data_rozpoczecia' => $data_rozpoczecia,
+        'status' => $status,
+        'odpowiedzialny' => $odpowiedzialny,
+    ]);
+
+    header('Location: index.php');
+    exit;
+}
+
+if ($action == 'add') {
+    $smarty->display('add.tpl');
+}
 ?>
