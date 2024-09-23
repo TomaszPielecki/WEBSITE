@@ -11,16 +11,6 @@ body {
 
 h1, h2 {
     color: $primary-color;
-    text-align: center; // Wyśrodkowanie nagłówków
-}
-
-.container {
-    max-width: 800px; // Maksymalna szerokość kontenera
-    margin: 0 auto; // Wyśrodkowanie kontenera
-    padding: 20px;
-    background-color: white; // Tło kontenera
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 table {
@@ -40,11 +30,11 @@ table {
 }
 
 form {
-    margin-bottom: 20px; // Odstęp pomiędzy formularzami
     background-color: #fff;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 
     label {
         display: block;
