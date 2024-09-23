@@ -1,4 +1,5 @@
 <?php
+ob_start();
 require_once 'libs/Smarty.class.php';
 require_once 'db.php';
 $smarty = new Smarty();
@@ -118,4 +119,5 @@ if ($action == 'add' && $_SERVER['REQUEST_METHOD'] === 'POST') {
 if ($action == 'add') {
     $smarty->display('add.tpl');
 }
+ob_end_flush();
 ?>
