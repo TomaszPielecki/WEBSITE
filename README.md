@@ -20,4 +20,4 @@ To aplikacja do zarządzania projektami firmy. Umożliwia dodawanie, edytowanie,
 ## Instalacja
 1. Sklonuj repozytorium:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
+   git clone https://github.com/TomaszPielecki/WEBSITE.git
