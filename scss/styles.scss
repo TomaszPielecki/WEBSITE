@@ -7,10 +7,15 @@ body {
     background-color: #f4f4f4;
     margin: 0;
     padding: 20px;
+    display: flex;
+    flex-direction: column; // Umożliwia pionowe ustawienie elementów
+    align-items: center; // Wyśrodkowuje w poziomie
 }
 
 h1, h2 {
     color: $primary-color;
+    text-align: center; // Wyśrodkowanie tekstu
+    margin: 10px 0; // Dodatkowe marginesy dla lepszej przestrzeni
 }
 
 table {
@@ -35,6 +40,7 @@ form {
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
+    width: 100%; // Umożliwia pełną szerokość formy
 
     label {
         display: block;
