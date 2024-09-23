@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2024-09-23 11:09:23
+/* Smarty version 3.1.33, created on 2024-09-23 11:33:24
   from 'D:\PrestaPHP\Website\smarty\templates\projekty.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_66f13043124f42_45030955',
+  'unifunc' => 'content_66f135e4820ab0_84337512',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '29298a8f51b4e8b7197c0d6c7466edb09446fe4c' => 
     array (
       0 => 'D:\\PrestaPHP\\Website\\smarty\\templates\\projekty.tpl',
-      1 => 1727082553,
+      1 => 1727083768,
       2 => 'file',
     ),
   ),
@@ -20,8 +20,10 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_66f13043124f42_45030955 (Smarty_Internal_Template $_smarty_tpl) {
-?><!DOCTYPE html>
+function content_66f135e4820ab0_84337512 (Smarty_Internal_Template $_smarty_tpl) {
+$_smarty_tpl->_checkPlugins(array(0=>array('file'=>'D:\\PrestaPHP\\Website\\libs\\plugins\\modifier.date_format.php','function'=>'smarty_modifier_date_format',),));
+?>
+<!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
@@ -50,18 +52,10 @@ function content_66f13043124f42_45030955 (Smarty_Internal_Template $_smarty_tpl)
             <option value="w trakcie">W trakcie</option>
         </select><br>
 
-        <button type="submit">Dodaj projekt</button>
-    </form>
+        <label for="odpowiedzialny">Odpowiedzialny:</label>
+        <input type="text" id="odpowiedzialny" name="odpowiedzialny" required><br>
 
-    <!-- Formularz filtrowania -->
-    <form method="GET" action="">
-        <label for="filter-status">Filtruj według statusu:</label>
-        <select name="filter-status" id="filter-status">
-            <option value="">Wszystkie</option>
-            <option value="zakończony" <?php if ($_smarty_tpl->tpl_vars['filter_status']->value == 'zakończony') {?>selected<?php }?>>Zakończony</option>
-            <option value="w trakcie" <?php if ($_smarty_tpl->tpl_vars['filter_status']->value == 'w trakcie') {?>selected<?php }?>>W trakcie</option>
-        </select>
-        <button type="submit">Filtruj</button>
+        <button type="submit">Dodaj projekt</button>
     </form>
 
     <!-- Formularz wyszukiwania projektów -->
@@ -79,6 +73,8 @@ function content_66f13043124f42_45030955 (Smarty_Internal_Template $_smarty_tpl)
             <th>Data rozpoczęcia</th>
             <th>Data zakończenia</th>
             <th>Status</th>
+            <th>Odpowiedzialny</th>
+            <th>Czas upływu</th>
             <th>Akcje</th>
         </tr>
         <?php
@@ -98,6 +94,19 @@ echo $_smarty_tpl->tpl_vars['projekt']->value['data_zakonczenia'];
 } else { ?>W trakcie<?php }?></td>
             <td><?php echo $_smarty_tpl->tpl_vars['projekt']->value['status'];?>
 </td>
+            <td><?php echo $_smarty_tpl->tpl_vars['projekt']->value['odpowiedzialny'];?>
+</td>
+            <td>
+                <?php $_smarty_tpl->_assignInScope('data_rozpoczecia', $_smarty_tpl->tpl_vars['projekt']->value['data_rozpoczecia']);?>
+                <?php $_smarty_tpl->_assignInScope('aktualna_data', smarty_modifier_date_format("now","%Y-%m-%d"));?>
+                <?php $_smarty_tpl->_assignInScope('roznica', (strtotime($_smarty_tpl->tpl_vars['aktualna_data']->value)-strtotime($_smarty_tpl->tpl_vars['data_rozpoczecia']->value))/(60*60*24));?>
+                <?php if ($_smarty_tpl->tpl_vars['roznica']->value >= 0) {?>
+                    <?php echo $_smarty_tpl->tpl_vars['roznica']->value;?>
+ dni
+                <?php } else { ?>
+                    "Niedawno rozpoczęty"
+                <?php }?>
+            </td>
             <td>
                 <a href="index.php?action=edit&id=<?php echo $_smarty_tpl->tpl_vars['projekt']->value['id'];?>
 ">Edytuj</a>
