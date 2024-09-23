@@ -25,3 +25,13 @@ To aplikacja do zarządzania projektami firmy. Umożliwia dodawanie, edytowanie,
 ## Przejdz do katalogu
    ```bash
    cd WEBSITE
+
+## Technologie
+- Skonfiguruj bazę danych, używając pliku projekty_firma.sql.
+- Skonfiguruj połączenie z bazą danych w pliku db.php.
+- Uruchom lokalny serwer (np. XAMPP) i otwórz aplikację w przeglądarce.
+
+## Autor
+- Tomasz Pielecki Licencja MIT
+
+
