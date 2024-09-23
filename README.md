@@ -21,3 +21,7 @@ To aplikacja do zarządzania projektami firmy. Umożliwia dodawanie, edytowanie,
 1. Sklonuj repozytorium:
    ```bash
    git clone https://github.com/TomaszPielecki/WEBSITE.git
+
+## Przejdz do katalogu
+   ```bash
+   cd WEBSITE
