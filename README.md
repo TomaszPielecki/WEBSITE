@@ -1,4 +1,4 @@
-# Projekty Firmy
+# Zarzadzanie Projektami w Firmie
 
 ## Opis
 To aplikacja do zarządzania projektami firmy. Umożliwia dodawanie, edytowanie, usuwanie i wyświetlanie projektów. Aplikacja przechowuje informacje o nazwie projektu, opisie, dacie rozpoczęcia, statusie oraz osobie odpowiedzialnej za projekt.
